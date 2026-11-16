@@ -79,7 +79,7 @@ print("\n📊 [1/12] DATENBESCHAFFUNG UND -VALIDIERUNG")
 print("-" * 60)
 
 # Definiere den Pfad zur CSV-Datei
-CSV_PATH = '/Users/samsam/Desktop/Telecom Custumor Churn/Telco-Customer-Churn.csv'
+CSV_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Telco-Customer-Churn.csv')
 
 # Falls die Datei nicht existiert, lade sie automatisch herunter
 if not os.path.exists(CSV_PATH):

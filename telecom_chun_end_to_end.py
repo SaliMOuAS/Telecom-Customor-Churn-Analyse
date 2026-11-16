@@ -53,7 +53,8 @@ print("="*80)
 # ----------------------------
 # Definiere den direkten Pfad zur CSV-Datei
 # Passe diesen Pfad an, falls deine Datei anders heißt
-CSV_PATH = '/Users/samsam/Desktop/Telecom Custumor Churn/WA_Fn-UseC_-Telco-Customer-Churn.csv'
+DATA_DIR = os.path.dirname(os.path.abspath(__file__))
+CSV_PATH = os.path.join(DATA_DIR, 'WA_Fn-UseC_-Telco-Customer-Churn.csv')
 
 # Falls die Datei nicht existiert, versuche alternative Namen
 if not os.path.exists(CSV_PATH):
@@ -67,7 +68,7 @@ if not os.path.exists(CSV_PATH):
     
     found = False
     for alt_name in alternative_names:
-        alt_path = f'/Users/samsam/Desktop/Telecom Custumor Churn/{alt_name}'
+        alt_path = os.path.join(DATA_DIR, alt_name)
         if os.path.exists(alt_path):
             CSV_PATH = alt_path
             found = True
@@ -76,7 +77,7 @@ if not os.path.exists(CSV_PATH):
     if not found:
         print(f"\n❌ ERROR: CSV-Datei nicht gefunden unter: {CSV_PATH}")
         print("\n📌 Bitte stelle sicher, dass die Datei existiert.")
-        print("   Erwarteter Pfad: /Users/samsam/Desktop/Telecom Custumor Churn/")
+        print(f"   Erwarteter Ordner: {DATA_DIR}")
         print("\n💡 Mögliche Dateinamen:")
         for name in alternative_names:
             print(f"   - {name}")
