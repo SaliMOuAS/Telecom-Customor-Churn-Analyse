@@ -588,22 +588,13 @@ print("-" * 60)
 # Extrahiere Feature-Namen nach Preprocessing
 preprocessor_fit = rf_model.named_steps['preprocessor']
 
-# Feature-Namen sammeln
-feature_names = []
-feature_names.extend(numeric_cols)
-
-for name, transformer, columns in preprocessor_fit.transformers_:
-    if name == 'categorical' and len(columns) > 0:
-        ohe = transformer.named_steps['onehot']
-        for col in columns:
-            categories = ohe.categories_[list(columns).index(col)]
-            for cat in categories:
-                feature_names.append(f"{col}_{cat}")
+# Feature-Namen direkt aus dem Preprocessor holen (immer passend zur Ausgabe)
+feature_names = [n.split('__', 1)[-1] for n in preprocessor_fit.get_feature_names_out()]
 
 # Feature Importances aus Random Forest
 importances = rf_model.named_steps['classifier'].feature_importances_
 feature_importance_df = pd.DataFrame({
-    'feature': feature_names[:len(importances)],
+    'feature': feature_names,
     'importance': importances
 }).sort_values('importance', ascending=False)
 
